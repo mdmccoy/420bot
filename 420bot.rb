@@ -1,16 +1,15 @@
-require 'dotenv'
-Dotenv.load
+require './config.rb'
 
-require 'slack-ruby-bot'
-
-Giphy.configure do |config|
-  config.rating = 'R'
+scheduler = Rufus::Scheduler.new
+# scheduler.cron '*/1 * * * *' do
+scheduler.cron '20 16 * * *' do
+  client = Slack::Web::Client.new
+  client.chat_postMessage(channel: '#general', text: '421bot 420', as_user: true)
 end
 
 class Four20Bot < SlackRubyBot::Bot
   command '420' do |client, data, match|
-    # c.say(text: 'https://giphy.com/gifs/mrw-state-president-Jnx5ztK49mHJe', channel: d.channel)
-    client.say(channel: data.channel, text: '420, blaze it.', gif: 'weed')
+    client.say(channel: data.channel, text: 'Blaze it.', gif: 'weed')
   end
 end
 
