@@ -4,7 +4,7 @@ scheduler = Rufus::Scheduler.new
 # scheduler.cron '*/1 * * * *' do
 scheduler.cron '20 16 * * 1-5' do
   client = Slack::Web::Client.new
-  client.chat_postMessage(channel: '#dev', text: '420bot 420', as_user: true)
+  client.chat_postMessage(channel: '#dev_private', text: '420bot 420', as_user: true)
 end
 
 class Four20Bot < SlackRubyBot::Bot
