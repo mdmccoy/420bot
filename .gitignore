@@ -1,2 +1,4 @@
 .env
 .idea
+logfile.txt
+pid.txt
