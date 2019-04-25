@@ -3,7 +3,6 @@ Dotenv.load
 
 require 'slack-ruby-bot'
 require 'rufus-scheduler'
-require 'httparty'
 
 Giphy.configure do |config|
   config.rating = 'R'
