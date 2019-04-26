@@ -1,7 +1,6 @@
 require './config.rb'
 
-scheduler = Rufus::Scheduler.new
-scheduler.cron '20 20 * * 1-5' do
+SCHEDULER.cron '20 20 * * 1-5' do
   # SystemTime execpted to be UTC, currently hardcoded to EST, M-F
   client = Slack::Web::Client.new
   client.chat_postMessage(channel: '#dev_private', text: '420bot 420', as_user: true)

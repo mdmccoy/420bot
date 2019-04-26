@@ -1,8 +1,18 @@
 require 'dotenv'
 Dotenv.load
 
-require 'slack-ruby-bot'
 require 'rufus-scheduler'
+require 'slack-ruby-bot'
+require 'yaml'
+
+config = YAML.load_file('config.yaml')
+
+CHANNEL = config['channel']
+
+# Rufus uses Ruby time.
+ENV['TZ'] = config['time_zone']
+SCHEDULER = Rufus::Scheduler.new
+
 
 Giphy.configure do |config|
   config.rating = 'R'
