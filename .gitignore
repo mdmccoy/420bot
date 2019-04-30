@@ -1,4 +1,4 @@
 .env
 .idea
 logfile.txt
-pid.txt
+run.pid
