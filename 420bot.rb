@@ -11,4 +11,9 @@ class Four20Bot < SlackRubyBot::Bot
   end
 end
 
-Four20Bot.run
+begin
+  Four20Bot.run
+rescue Slack::RealTime::Client::ClientNotStartedError => e
+  File.open("errors.log","a") { |f| f.puts(e.message) }
+  retry
+end
