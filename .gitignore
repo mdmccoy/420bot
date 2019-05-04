@@ -4,3 +4,4 @@ logfile.txt
 pid.txt
 errors.log
 .byebug_history
+run.pid
