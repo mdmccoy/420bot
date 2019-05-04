@@ -25,3 +25,6 @@ end
 SlackRubyBot.configure do |config|
   config.allow_message_loops = true
 end
+
+SlackRubyBot::Client.logger.level = Logger::WARN
+

@@ -13,7 +13,10 @@ end
 
 begin
   Four20Bot.run
-rescue Slack::RealTime::Client::ClientNotStartedError => e
-  File.open("errors.log","a") { |f| f.puts(e.message) }
+rescue StandardError => e
+  File.open("errors.log","a") do |f| 
+    f.puts("Reboot-420bot")
+    f.puts(e.message)
+  end
   retry
 end
