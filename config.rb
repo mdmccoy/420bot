@@ -4,6 +4,7 @@ Dotenv.load
 require 'rufus-scheduler'
 require 'slack-ruby-bot'
 require 'yaml'
+require './gif.rb'
 
 config = YAML.load_file('config.yaml')
 
@@ -13,18 +14,12 @@ CHANNEL = config['channel']
 ENV['TZ'] = config['time_zone']
 SCHEDULER = Rufus::Scheduler.new
 
-
-Giphy.configure do |config|
-  config.rating = 'R'
-end
-
 Slack.configure do |config|
   config.token = ENV['SLACK_API_TOKEN']
 end
 
-SlackRubyBot.configure do |config|
-  config.allow_message_loops = true
-end
+# SlackRubyBot.configure do |config|
+#   config.allow_message_loops = true
+# end
 
 SlackRubyBot::Client.logger.level = Logger::WARN
-
