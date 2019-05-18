@@ -1,0 +1,9 @@
+[Unit]
+Description=Start 420bot
+
+[Service]
+Type=oneshot
+ExecStart=/home/ec2-user/source/420bot
+
+[Install]
+WantedBy=multi-user.target
