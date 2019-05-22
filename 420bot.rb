@@ -9,6 +9,10 @@ class Four20Bot < SlackRubyBot::Bot
   command 'What time is it?' do |client, data, match|
     client.say(channel: data.channel, text: "4:20, blaze it. #{Gif.fetch_gif('weed')}")
   end
+
+  command 'what do we say' do |client, data, match|
+    client.say(channel: data.channel, text: "Not today. #{Gif.fetch_gif('got not_today')}")
+  end
 end
 
 begin
