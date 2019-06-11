@@ -11,7 +11,12 @@ class Four20Bot < SlackRubyBot::Bot
   end
 
   command 'what do we say' do |client, data, match|
-    client.say(channel: data.channel, text: "Not today. #{Gif.fetch_gif('got not_today')}")
+    client.say(channel: data.channel, text: "Not today. #{Gif.fetch_gif('not-today')}")
+  end
+
+  scan /fact/ do |client, data, match|
+    text = HTTParty.get('http://randomuselessfact.appspot.com/random.json?lang=en')["text"]
+    client.say(channel: data.channel, text: text)
   end
 end
 

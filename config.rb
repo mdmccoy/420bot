@@ -4,6 +4,7 @@ Dotenv.load
 require 'rufus-scheduler'
 require 'slack-ruby-bot'
 require 'yaml'
+require 'httparty'
 require './gif.rb'
 
 config = YAML.load_file('config.yaml')
