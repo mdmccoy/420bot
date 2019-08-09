@@ -18,6 +18,10 @@ class Four20Bot < SlackRubyBot::Bot
     text = HTTParty.get('http://randomuselessfact.appspot.com/random.json?lang=en')["text"]
     client.say(channel: data.channel, text: text)
   end
+
+  scan /[^a-z]?wizards?[^a-z]/ do |client, data, match|
+    client.say(channel: data.channel, text: "(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. *")
+  end
 end
 
 begin
@@ -29,3 +33,4 @@ rescue StandardError => e
   end
   retry
 end
+
