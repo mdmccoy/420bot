@@ -14,8 +14,8 @@ class Four20Bot < SlackRubyBot::Bot
     client.say(channel: data.channel, text: "Not today. #{Gif.fetch_gif('not-today')}")
   end
 
-  scan /[^a-z]?facts?[^a-z]/ do |client, data, match|
-    text = HTTParty.get('http://randomuselessfact.appspot.com/random.json?lang=en')["text"]
+  scan /\b(facts*)\b/ do |client, data, match|
+    text = HTTParty.get('https://uselessfacts.jsph.pl/random.json?language=en')["text"]
     client.say(channel: data.channel, text: text)
   end
 end
