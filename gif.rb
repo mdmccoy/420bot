@@ -1,7 +1,7 @@
 module Gif
   require 'GiphyClient'
 
-  def self.fetch_gif(subject)
+  def self.fetch(subject)
     api_instance = GiphyClient::DefaultApi.new
 
     args = {
