@@ -14,6 +14,11 @@ class Four20Bot < SlackRubyBot::Bot
     client.say(channel: data.channel, text: "Not today. #{Gif.fetch_gif('not-today')}")
   end
 
+  command 'ban' do |client, data, match|
+    File.open('blacklist.txt','a') { |f| f.puts("#{match[:expression]}") }
+    client.say(channel: data.channel, text: 'Done.')
+  end
+
   scan /\b(facts*)\b/ do |client, data, match|
     text = HTTParty.get('https://uselessfacts.jsph.pl/random.json?language=en')["text"]
     client.say(channel: data.channel, text: text)
