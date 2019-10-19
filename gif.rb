@@ -3,7 +3,7 @@ module Gif
 
   class BlackListError < StandardError; end
 
-  def self.fetch_gif(subject)
+  def self.fetch(subject)
     api_instance = GiphyClient::DefaultApi.new
 
     args = {
