@@ -20,7 +20,6 @@ class Four20Bot < SlackRubyBot::Bot
   end
 
   command 'update' do |client, data, match|
-    # name = HTTParty.get("https://slack.com/api/users.info?token=#{ENV['SLACK_API_TOKEN']}&user=#{data.user}")['user']['real_name']
     name = client.web_client.users_info(user: data.user)['user']['real_name']
     standup = YAML.load(File.open('standup.yaml','a+')) || {}
     standup[name] = match[:expression]
