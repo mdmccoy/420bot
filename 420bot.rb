@@ -19,9 +19,28 @@ class Four20Bot < SlackRubyBot::Bot
     client.say(channel: data.channel, text: 'Done.')
   end
 
+  command 'say' do |client, data, match|
+    client.web_client.chat_postMessage(channel: CHANNEL, text: match['expression'], as_user: true)
+  end
+
   scan /\b(facts*)\b/ do |client, data, match|
     text = HTTParty.get('https://uselessfacts.jsph.pl/random.json?language=en')["text"]
     client.say(channel: data.channel, text: text)
+  end
+
+  def self.percentage_emoji(string)
+    case string.to_f
+    when 0.0
+      ':not100:'
+    when 100.0
+      ':100:'
+    else
+      string
+    end
+  end
+
+  def self.jira_link(ticket)
+    # lets make a link to the jira ticket here
   end
 
   operator '!' do |client, data, match|
@@ -54,7 +73,7 @@ class Four20Bot < SlackRubyBot::Bot
             },
             {
               type: 'mrkdwn',
-              text: "*Chance to finish:* #{row[7] == '100%' ? ':100:' : row[7]}"
+              text: "*Chance to finish:* #{Four20Bot.percentage_emoji(row[7])}"
             }
           ]
         }
