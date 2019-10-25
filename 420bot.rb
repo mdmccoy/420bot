@@ -79,6 +79,8 @@ class Four20Bot < SlackRubyBot::Bot
         blocks: reply,
         as_user: true
       )
+    else
+      client.say(channel: data.channel, text: "RIP #{Gif.fetch('dead')}")
     end
   end
 end
