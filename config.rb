@@ -6,6 +6,7 @@ require 'slack-ruby-bot'
 require 'yaml'
 require 'httparty'
 require './gif.rb'
+require './google_sheets.rb'
 
 config = YAML.load_file('config.yaml')
 
@@ -23,4 +24,4 @@ end
 #   config.allow_message_loops = true
 # end
 
-SlackRubyBot::Client.logger.level = Logger::WARN
+SlackRubyBot::Client.logger.level = Logger::DEBUG

@@ -23,6 +23,64 @@ class Four20Bot < SlackRubyBot::Bot
     text = HTTParty.get('https://uselessfacts.jsph.pl/random.json?language=en')["text"]
     client.say(channel: data.channel, text: text)
   end
+
+  operator '!' do |client, data, match|
+    case match['expression']
+    when 'squad_goals'
+      reply = []
+      GoogleSheet.get.each do |row|
+        reply << {
+          type: "section",
+          text: {
+            type: 'mrkdwn',
+            text: "#{row[1]} - *#{row[0]}*"
+          }
+        }
+
+        reply << {
+          "type": "context",
+          "elements": [
+            {
+              "type": "mrkdwn",
+              "text": "*Asignee:* #{row[5]}"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Story Points:* #{row.last}"
+            },
+            {
+              type: 'mrkdwn',
+              text: "*Status:* #{row[3]}"
+            },
+            {
+              type: 'mrkdwn',
+              text: "*Chance to finish:* #{row[7] == '100%' ? ':100:' : row[7]}"
+            }
+          ]
+        }
+
+        reply << {
+          type: "context",
+          elements: [
+            {
+              type: 'mrkdwn',
+              text: "#{row[6]}"
+            }
+          ]
+        }
+
+        reply << {
+          type: "divider"
+        }
+      end
+
+      client.web_client.chat_postMessage(
+        channel: data.channel,
+        blocks: reply,
+        as_user: true
+      )
+    end
+  end
 end
 
 begin
