@@ -15,5 +15,5 @@ gem 'google-api-client'
 
 
 # Dev
-gem 'rerun'
-gem 'byebug'
+# gem 'rerun'
+# gem 'byebug'
