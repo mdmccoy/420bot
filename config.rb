@@ -5,15 +5,13 @@ require 'rufus-scheduler'
 require 'slack-ruby-bot'
 require 'yaml'
 require 'httparty'
-require './gif.rb'
-require './google_sheets.rb'
+require './modules/gif.rb'
+require './modules/google_sheets.rb'
 
-config = YAML.load_file('config.yaml')
-
-CHANNEL = config['channel']
+CHANNEL = ENV['CHANNEL']
 
 # Rufus uses Ruby time.
-ENV['TZ'] = config['time_zone']
+ENV['TZ'] = ENV['TIMEZONE']
 SCHEDULER = Rufus::Scheduler.new
 
 Slack.configure do |config|
@@ -24,4 +22,4 @@ end
 #   config.allow_message_loops = true
 # end
 
-SlackRubyBot::Client.logger.level = Logger::DEBUG
+SlackRubyBot::Client.logger.level = Logger::WARN

@@ -29,8 +29,8 @@ module Gif
   end
 
   def self.blacklisted?(gif_id)
-    return false unless File.file?('blacklist.txt')
+    return false unless File.file?('./logs/blacklist.txt')
 
-    File.readlines('blacklist.txt').any? { |line| line.strip == gif_id }
+    File.readlines('./logs/blacklist.txt').any? { |line| line.strip == gif_id }
   end
 end

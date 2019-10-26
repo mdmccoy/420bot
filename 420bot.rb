@@ -28,74 +28,12 @@ class Four20Bot < SlackRubyBot::Bot
     client.say(channel: data.channel, text: text)
   end
 
-  def self.percentage_emoji(string)
-    case string.to_f
-    when 0.0
-      ':not100:'
-    when 100.0
-      ':100:'
-    else
-      string
-    end
-  end
-
-  def self.jira_link(ticket)
-    # lets make a link to the jira ticket here
-  end
-
   operator '!' do |client, data, match|
     case match['expression']
     when 'squad_goals'
-      reply = []
-      GoogleSheet.get.each do |row|
-        reply << {
-          type: "section",
-          text: {
-            type: 'mrkdwn',
-            text: "#{row[1]} - *#{row[0]}*"
-          }
-        }
-
-        reply << {
-          "type": "context",
-          "elements": [
-            {
-              "type": "mrkdwn",
-              "text": "*Asignee:* #{row[5]}"
-            },
-            {
-              "type": "mrkdwn",
-              "text": "*Story Points:* #{row.last}"
-            },
-            {
-              type: 'mrkdwn',
-              text: "*Status:* #{row[3]}"
-            },
-            {
-              type: 'mrkdwn',
-              text: "*Chance to finish:* #{Four20Bot.percentage_emoji(row[7])}"
-            }
-          ]
-        }
-
-        reply << {
-          type: "context",
-          elements: [
-            {
-              type: 'mrkdwn',
-              text: "#{row[6]}"
-            }
-          ]
-        }
-
-        reply << {
-          type: "divider"
-        }
-      end
-
       client.web_client.chat_postMessage(
         channel: data.channel,
-        blocks: reply,
+        blocks: GoogleSheet.block_response,
         as_user: true
       )
     else
@@ -107,7 +45,7 @@ end
 begin
   Four20Bot.run
 rescue StandardError => e
-  File.open("errors.log","a") do |f| 
+  File.open("./logs/errors.log","a") do |f|
     f.puts("Reboot-420bot")
     f.puts(e.message)
   end
